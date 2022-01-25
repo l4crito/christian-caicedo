@@ -17,4 +17,9 @@ public class UserController {
     User create(@RequestBody User user) throws Exception {
         return chatService.addUser(user);
     }
+
+    @PostMapping(value = "/agregarContacto")
+    void addContact(@RequestParam(name = "contacto") Integer contactId,@RequestParam(name = "usuario") Integer userId) throws Exception {
+        chatService.addContactToUSer(userId,contactId);
+    }
 }

@@ -1,17 +1,46 @@
-Existe data mockeada con un usuario, un  grupo y un mensaje
+Las listas dentro de ChatService representan un repositorio
 
- Crear un usuario, Respuesta Objeto Usuario
+Cada vez que se envia un mensaje a un grupo, tambien se notifica por websocket
+
+Existe data mockeada con 3 usuarios [0,1,2], un  grupo (0) y un mensaje por cada usuario 
+[{usuario:0,mensaje:0},{usuario:1,mensaje:1},{usuario:2,mensaje:2}]
+
+
+El usuario 0 tiene agregado a usuario 1
+El usuario 1 no tiene agregado a usuario 0
+
+
+Si el usuario 0 pide los mensajes del grupo 0, cuando vea un mensaje del usuario 1 contact=true se visualizara en sus mensajes
+ya que lo tiene agregados
+```
+curl --location --request GET 'localhost:8080/chat/mensajes?grupo=0&usuario=0'
+```
+
+Si el usuario 1 pide los mensajes del grupo 0, cuando vea un mensaje del usuario 0 o 2 contact=false se visualizara en sus mensajes
+ya que no  los tiene agregado
+```
+curl --location --request GET 'localhost:8080/chat/mensajes?grupo=0&usuario=0'
+```
+
+Crear un usuario, Respuesta Objeto Usuario
+un usuario se añade como contacto a el/ella mismo cuando se crea
 ```
 curl --location --request POST 'localhost:8080/usuario/crear' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "name":"Diana Torres",
-     "status":"Realizandi la prueba de xcale",
+     "name":"Diana Torres",
+     "status":"Realizando la prueba de xcale",
      "photo":"alguna url de la photo"
 }
     
 '
 ```
+
+Agregar contacto
+```
+curl --location --request POST 'localhost:8080/usuario/agregarContacto?usuario=0&contacto=1'
+```
+
 
 Crear un grupo , Respuesta Objeto grupo
 ```
@@ -59,5 +88,5 @@ curl --location --request POST 'localhost:8080/chat/enviar' \
 
 para leer los mensajes de un grupo en especifico
 ```
-curl --location --request GET 'localhost:8080/chat/mensajes?grupo=0'
+curl --location --request GET 'localhost:8080/chat/mensajes?grupo=0&usuario=0'
 ```
