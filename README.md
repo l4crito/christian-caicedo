@@ -1,4 +1,5 @@
 Las listas dentro de ChatService representan un repositorio
+Toda la logica de la app esta en Chatservice(donde se encuentran ciertas pruebas unitarias)
 
 Cada vez que se envia un mensaje a un grupo, tambien se notifica por websocket
 
