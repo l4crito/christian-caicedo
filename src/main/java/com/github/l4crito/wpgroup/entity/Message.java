@@ -9,7 +9,8 @@ import java.util.Date;
 @Data
 @JsonSerialize
 @JsonDeserialize
-public class Chat {
+public class Message {
+    private Integer id;
     private String userId;
     private String groupId;
     private String message;
